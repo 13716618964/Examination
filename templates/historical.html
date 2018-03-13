@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Examination Subjects</title>
+</head>
+<body>
+    <div class="indexdiv1" style="height: 20%;width: 100%;text-align:right">
+            所在班级:{{ CLASS }}&nbsp;&nbsp;<a href="/PersonalInformation"title="PersonalInformation">{{ USERNAME }}</a>
+        ，<a href="exit.html">退出登录</a></div>
+    <div class="indexdiv3" style="height: 60%;width: 100%;text-align: center;">
+            <a href="/curriculum" style="text-decoration:none;">查看课程或章节&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            <a href="/examination" style="text-decoration:none;">进行考试&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            <a href="/record" style="text-decoration:none;">查看考试记录</a>
+        </div>
+        <div class="indexdiv2" style="height: 80%;width: 100%;text-align: center;">
+        <table style="text-align: center;">
+    <tr>
+      <th>成绩</th>
+      <th>科目</th>
+      <th>时间</th>
+    </tr>
+            {% for i in DATA %}
+                <tr>
+                    <td>{{ i.0 }}</td>
+                    <td>{{ i.2 }}</td>
+                    <td>{{ i.1|date:"Y-n-d H:i:s" }}</td></br>
+                </tr>
+            {% endfor %}
+        </table>
+        </div>
+
+</body>
+</html>

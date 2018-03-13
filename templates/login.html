@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Examination system</title>
+</head>
+<body>
+    <div class="div1" style="height: 20%;background: aqua;widows: 100%;"></div>
+    <div class="div2">
+            <form method="post" action="/verification">
+        {% csrf_token %}
+        {{ USERNAME }}<input type="text" name="username" style="width:100px;height" placeholder="username"/> </br>
+    	{{ PASSWORD }}<input type="password" name="password" style="width:100px" placeholder="password"/> </br>
+        {{ STUDENT_ID }}<input type="text" name="student_id" style="width:100px" placeholder="student_id"/> </br>
+        <input type="text" name="code"style="width:50px;height:30px" />
+        <img id="check_code_img" src="/create_code/" onclick="refresh_check_code(this)"  style="height:40px;position:relative ;top: 12px;"/></br>
+       <input type="submit" value="登录"  />
+    </div>
+</body>
+</html>
