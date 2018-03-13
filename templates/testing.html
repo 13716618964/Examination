@@ -15,15 +15,16 @@
             <a href="/record" style="text-decoration:none;">查看考试记录</a>
         </div>
         <div class="indexdiv3" style="height: 60%;width: 100%;text-align: center;"></br>
-        <form action="Judge" method="get">
+        <form id="formid" action="Judge" method="post">
+        {% csrf_token %}
             {% for data in DATA %}</br>
 
             题目{{ data.6 }}：{{ data.0 }} </br>
                 <div name="aaa">
-                选项：A.<input id="answer" name="question{{ data.6 }}" type="checkbox"  value="{{ data.1 }}" >{{ data.1 }}&nbsp;&nbsp;
-                B.<input id="answer" name="question{{ data.6 }}" type="checkbox" value="{{ data.2 }}" />{{ data.2 }}&nbsp;&nbsp;
-                C.<input id="answer" name="question{{ data.6 }}" type="checkbox" value="{{ data.3 }}" />{{ data.3 }}&nbsp;&nbsp;
-                D.<input id="answer" name="question{{ data.6 }}" type="checkbox" value="{{ data.4 }}" />{{ data.4 }}&nbsp;&nbsp;</br>
+                选项：A.<input id="answer" name="question{{ data.6 }}" type="radio"  value="{{ data.1 }}" >{{ data.1 }}&nbsp;&nbsp;
+                B.<input id="answer" name="question{{ data.6 }}" type="radio" value="{{ data.2 }}" />{{ data.2 }}&nbsp;&nbsp;
+                C.<input id="answer" name="question{{ data.6 }}" type="radio" value="{{ data.3 }}" />{{ data.3 }}&nbsp;&nbsp;
+                D.<input id="answer" name="question{{ data.6 }}" type="radio" value="{{ data.4 }}" />{{ data.4 }}&nbsp;&nbsp;</br>
                 </div>
             {% endfor %}
 
@@ -53,13 +54,15 @@ var s=Math.floor(t/1000);*/
 //var h=Math.floor(t/1000/60/60%24);
 var m=Math.floor(t/1000/60%60);
 var s=Math.floor(t/1000%60);
-var aaa=document.getElementsByName("aaa");
+/*var aaa=document.getElementsByName("aaa");
 //alert(aaa.length);
+    var json=new map();
 for(var i=0;i<aaa.length;i++){
     document.getElementsByName("aaa").item(i);
-}
+    json.put( document.getElementsByName("aaa"));
+*/
 if(m==0&&s==0){
-    location.href="Judge";
+    document.getElementById("formid").submit();
 }
 //document.getElementById("t_d").innerHTML = d + "天";
 //document.getElementById("t_h").innerHTML = h + "时";

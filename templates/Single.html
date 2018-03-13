@@ -19,6 +19,8 @@
             题目{{ data.6 }}：{{ data.0 }} </br>
                 选项：A.{{ data.1 }}&nbsp;&nbsp;B.{{ data.2 }}&nbsp;&nbsp;C.{{ data.3 }}&nbsp;&nbsp;D.{{ data.4 }}&nbsp;&nbsp;</br>
             正确答案：{{ data.5 }}
+                {% empty %}
+                暂无试题
             {% endfor %}
         </div>
 </body>

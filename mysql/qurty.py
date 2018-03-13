@@ -41,9 +41,9 @@ def questions1(subject):
     db.close()
     return data
 
-def insert_achievement(userID,achievement,datetime):
+def insert_achievement(userID,achievement,datetime,subject):
     db,dbc=init_connect()
-    sql="insert into Historical_achievement values('%s','%s','%s')" %(userID,achievement,datetime)
+    sql="insert into Historical_achievement values('%s','%s','%s','%s')" %(userID,achievement,datetime,subject)
     dbc.execute(sql)
     db.commit()
     db.close()

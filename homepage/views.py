@@ -137,6 +137,7 @@ def Examination(request):
     Class = request.session.get('class')
     subject_dict['CLASS']=Class
     subject=request.GET.get('subject')
+    request.session['subject']=subject
     DATA=mysql.questions(subject)
     num_list=[i for i in range(len(DATA))]
     que_num=random.sample(num_list,20)
@@ -147,10 +148,9 @@ def Examination(request):
         data_list.append(num)
         data.append(data_list)
         num+=1
-    print(data)
     subject_dict['DATA']=data
     now=datetime.datetime.now()
-    delta = datetime.timedelta(minutes=15, seconds=3)
+    delta = datetime.timedelta(minutes=0, seconds=30)
     now += delta
     TIME = now.strftime('%Y/%m/%d %H:%M:%S')
     subject_dict['DATETIME']=TIME
@@ -159,29 +159,31 @@ def Examination(request):
     for i in data:
         Right_Answe.append(i[5])
     request.session['RIGHT_AUSWE']=Right_Answe
+    print('正确答案：'+str(Right_Answe))
     return render(request,'testing.html',subject_dict)
 
 def Judge(request):
     userID = request.session.get('userID')
     if userID == None:
         return HttpResponseRedirect('/')
-    username = request.session.get('username')
-    Class = request.session.get('class')
+    subject = request.session.get('subject')
     Right_Auswe=request.session.get('RIGHT_AUSWE')
     answers=[]
-    for num in range(1,3):   #range(1,21):   #20道题
-        answer=request.GET.get('question'+str(num))
+    for num in range(1,21):   #range(1,21):   #20道题
+        answer=request.POST.get('question'+str(num))
         answers.append(answer)
     #分数
     Error=0
-    for i in range(2): #range(20)
+    for i in range(20): #range(20)
         if Right_Auswe[i] != answers[i]:
             Error+=1
-    achievement=str(100-Error*50)
+    achievement=str(100-Error*5)
+    print(achievement)
     now = datetime.datetime.now()
     #插入考试记录
-    mysql.insert_achievement(userID,achievement,now)
+    mysql.insert_achievement(userID,achievement,now,subject)
     del request.session['RIGHT_AUSWE']
+    del request.session['subject']
     return HttpResponseRedirect('/achievement/finish')
 
 def last_achievement(request):
